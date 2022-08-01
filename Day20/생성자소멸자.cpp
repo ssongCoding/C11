@@ -3,16 +3,33 @@
 using namespace std;
 
 class Coffee {
-	private: // ¹Û¿¡¼­ Á¢±Ù ¾ÈµÇ¼­
-		string order; // ÁÖ¹®¹ŞÀº ¸Ş´º ÀÌ¸§ ex. ¾Æ¾Æ
+	private: // ë°–ì—ì„œ ì ‘ê·¼ ì•ˆë˜ì„œ
+		string order; // ì£¼ë¬¸ë°›ì€ ë©”ë‰´ ì´ë¦„ ex. ì•„ì•„
+		/**** ìˆ˜ì—…ì‹œê°„ì—” í•˜ì§€ ì•Šì€ shot ***/
+		int shot = 3; // ìƒ· ê°œìˆ˜
 	public:
-		Coffee(string o); // »ı¼ºÀÚ : setOrder¶û »ç½Ç ÇÏ´Â ÀÏÀÌ °°À½
-		void setOrder(string o); // ÁÖ¹® ¹Ş¾Æ¼­ ¸Ş´º ÀÌ¸§ ¼ÂÆÃ
-		string getOrder(); // ¸Ş´º ÀÌ¸§ ¹İÈ¯
+		Coffee(string o); // ìƒì„±ì : setOrderë‘ ì‚¬ì‹¤ í•˜ëŠ” ì¼ì´ ê°™ìŒ
+		~Coffee(); // ì†Œë©¸ì
+		void setOrder(string o); // ì£¼ë¬¸ ë°›ì•„ì„œ ë©”ë‰´ ì´ë¦„ ì…‹íŒ…
+		string getOrder(); // ë©”ë‰´ ì´ë¦„ ë°˜í™˜
+		int getShot(); // ìƒ· ê°œìˆ˜ ë°˜í™˜
 };
 
-Coffee::Coffee(string o) { // »ı¼ºÀÚ
+Coffee::Coffee(string o) { // ìƒì„±ì
 	order = o;
+}
+
+/**** C++ ê´€ì‹¬ìˆìœ¼ì‹  ë¶„ë“¤ì€ ì•„ë˜ ìƒì„±ì ê³µë¶€ ë” í•´ì£¼ì„¸ìš” ****/
+Coffee::Coffee(string o, int s) // ì´ê²ƒì´ ì° ê¸°ë³¸ ìƒì„±ì!
+				// https://ebebeb111.tistory.com/17
+	: order(o), shot(s)
+{
+
+}
+
+/**** ì†Œë©¸ì ****/
+Coffee::~Coffee() { 
+	cout << order << " ì£¼ë¬¸ ì²˜ë¦¬ê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.";
 }
 
 string Coffee::getOrder() {
@@ -23,21 +40,34 @@ void Coffee::setOrder(string o) {
 	order = o;
 }
 
+/**** ìƒ· ê°œìˆ˜ ë°˜í™˜ ****/
+int Coffee::getShot() {
+	return shot;
+}
+
 int main() {
 	string name;
-	cout << "¾î¶² Ä¿ÇÇ¸¦ ÁÖ¹®ÇÏ½Ã°Ú¾î¿ä?";
-	getline(cin, name); // name º¯¼ö¿¡ ÀÔ·Â°ªÀÌ µé¾î°¨
-	// ÀÔ·Â : ex. ¾Æ¸Ş¸®Ä«³ë
+	cout << "ì–´ë–¤ ì»¤í”¼ë¥¼ ì£¼ë¬¸í•˜ì‹œê² ì–´ìš”?";
+	getline(cin, name); // name ë³€ìˆ˜ì— ì…ë ¥ê°’ì´ ë“¤ì–´ê°
+	// ì…ë ¥ : ex. ì•„ë©”ë¦¬ì¹´ë…¸
 
 	string temp;
-	cout << "¾ÆÀÌ½º·Î µå¸±±î¿ä ÇÖÀ¸·Î µå¸±±î¿ä?";
+	cout << "ì•„ì´ìŠ¤ë¡œ ë“œë¦´ê¹Œìš” í•«ìœ¼ë¡œ ë“œë¦´ê¹Œìš”?";
 	getline(cin, temp);
-	// ÀÔ·Â : ex. ¾ÆÀÌ½º
-
-	Coffee orderedCoffee(temp + name); // °´Ã¼ ¼±¾ğ
-	//orderedCoffee.setOrder(temp + name); // ¾ÆÀÌ½º¾Æ¸Ş¸®Ä«³ë
+	// ì…ë ¥ : ex. ì•„ì´ìŠ¤
 	
-	cout << "ÁÖ¹®ÇÏ½Å " << orderedCoffee.getOrder()
-			<< "³ª¿Ô½À´Ï´Ù.";
-	// Ãâ·Â : ÁÖ¹®ÇÏ½Å ¾ÆÀÌ½º¾Æ¸Ş¸®Ä«³ë ³ª¿Ô½À´Ï´Ù.
+	/**** ìƒ· ê°œìˆ˜ ì…ë ¥ ****/
+	int shotNum;
+	cout << "ìƒ·ì€ ëª‡ê°œ ë„£ì–´ë“œë¦´ê¹Œìš”?";
+	cin >> shotNum; // cinì€ ì—”í„°ê°’ ì•ˆ ë°›ìŒ
+	cin.ignore(); // â˜… ìœ ì˜ â˜… ì—”í„°ê°’ íŒ¨ìŠ¤ìš© ignore
+
+	Coffee orderedCoffee(temp + name); // ê°ì²´ ì„ ì–¸
+	//orderedCoffee.setOrder(temp + name); // ì•„ì´ìŠ¤ì•„ë©”ë¦¬ì¹´ë…¸
+	
+	cout << "ì£¼ë¬¸í•˜ì‹  " << orderedCoffee2.getShot() << "ìƒ· "
+		<< orderedCoffee2.getOrder() << "ë‚˜ì™”ìŠµë‹ˆë‹¤." << endl;
+	// ì¶œë ¥ : ì£¼ë¬¸í•˜ì‹  3ìƒ· ì•„ì´ìŠ¤ì•„ë©”ë¦¬ì¹´ë…¸ ë‚˜ì™”ìŠµë‹ˆë‹¤.
+	
+	//orderedCoffee.~Coffee(); // ì†Œë©¸ì - ì»´íŒŒì¼ëŸ¬ê°€ ì•Œì•„ì„œ ì†Œí™˜í•  í•¨ìˆ˜
 }
