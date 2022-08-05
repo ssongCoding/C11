@@ -1,43 +1,101 @@
-#include <stdio.h> // ±âº» ÀÔÃâ·Â
-
-typedef struct { // ÀÚ·á±¸Á¶ : ¹è¿­¸®½ºÆ®
-	int list[5]; // 5Ä­ ¸®½ºÆ® ¿ªÇÒ
-	int size; // ¿ø¼Ò °³¼ö
-} ArrayList;
-
-// ÃÊ±âÈ­
-void init(ArrayList* L) {
-	L->size = 0; // ¿ø¼Ò °³¼ö 0À¸·Î ¼ÂÆÃ
-				 // ¿ì¸° ÀÌÁ¦ ½ÃÀÛÀÌ´Ù!
-	// ÁÖ¼Ò°ªÀ» ¹Ş¾Æ¼­, ¿ø·¡ ±× ¾È¿¡ °ª¿¡ Á¢±ÙÇÏ·Á¸é
-	// *L ÀÌ·¸°Ô ½á¾ßÇß´Âµğ
-	// ¾à¼ÓÀ» ÇÑ°Å¿¡¿ä. ±×³É LÀ» ¾²µÇ -> ¶û °°ÀÌ ¾²¸é
-	// C¾ğ¾î°¡ ¾Ë¾Æ¼­ ÇØ¼®ÇØÁÖ°Ú´Ù°í.
-}
-
-// ºñ¾ú´ÂÁö È®ÀÎ
-int isEmpty(ArrayList* L) { // »ç½Ç ±×³É ArrayList ¹Ş¾Æµµ µÇ´Âµ¥
-							// ÅëÀÏ°¨ ÁÖ·Á°í
-	if (L->size == 0) { // ºñ¾úÀ¸¸é,
-						// = ¿ø¼Ò°¡ 0°³¶ó±¸¿ä
-		return 1;		// true
-	} else {
-		return 0;		// false
-	}
-}
-
-// ²Ë Ã¡´ÂÁö
-int isFull(ArrayList* L) {
-	if (L->size == 5) {
-		return 1;
-	} else {
-		return 0;
-	}
-}
-
-int main() {
-
-	ArrayList arrlist;
-
-	return 0;
-}
+//#include <stdio.h> // ê¸°ë³¸ ì…ì¶œë ¥
+//
+//typedef struct { // ìë£Œêµ¬ì¡° : ë°°ì—´ë¦¬ìŠ¤íŠ¸
+//	int list[5]; // 5ì¹¸ ë¦¬ìŠ¤íŠ¸ ì—­í• 
+//	int size; // ì›ì†Œ ê°œìˆ˜
+//} ArrayList;
+//
+//// ì´ˆê¸°í™”
+//void init(ArrayList* L) {
+//	L->size = 0; // ì›ì†Œ ê°œìˆ˜ 0ìœ¼ë¡œ ì…‹íŒ…
+//				 // ìš°ë¦° ì´ì œ ì‹œì‘ì´ë‹¤!
+//	// ì£¼ì†Œê°’ì„ ë°›ì•„ì„œ, ì›ë˜ ê·¸ ì•ˆì— ê°’ì— ì ‘ê·¼í•˜ë ¤ë©´
+//	// *L ì´ë ‡ê²Œ ì¨ì•¼í–ˆëŠ”ë””
+//	// ì•½ì†ì„ í•œê±°ì—ìš”. ê·¸ëƒ¥ Lì„ ì“°ë˜ -> ë‘ ê°™ì´ ì“°ë©´
+//	// Cì–¸ì–´ê°€ ì•Œì•„ì„œ í•´ì„í•´ì£¼ê² ë‹¤ê³ .
+//}
+//
+//// ë¹„ì—ˆëŠ”ì§€ í™•ì¸
+//int isEmpty(ArrayList* L) { // ì‚¬ì‹¤ ê·¸ëƒ¥ ArrayList ë°›ì•„ë„ ë˜ëŠ”ë°
+//							// í†µì¼ê° ì£¼ë ¤ê³ 
+//	if (L->size == 0) { // ë¹„ì—ˆìœ¼ë©´,
+//						// = ì›ì†Œê°€ 0ê°œë¼êµ¬ìš”
+//		return 1;		// true
+//	} else {
+//		return 0;		// false
+//	}
+//}
+//
+//// ê½‰ ì°¼ëŠ”ì§€
+//int isFull(ArrayList* L) {
+//	if (L->size == 5) {
+//		return 1;
+//	} else {
+//		return 0;
+//	}
+//}
+//
+//// add
+//void add(ArrayList* L, int position, int item) {
+//	// addì˜ ì—…ê·¸ë ˆì´ë“œ ì¡°ê±´ ì¶”ê°€
+//	// ë¦¬ìŠ¤íŠ¸ê°€ ê½‰ì°¨ì§„ ì•Šì•˜ëŠ”ì§€, positionê°€ ë‚´ê°€ ë„£ì–´ì¤„ ìˆ˜ ìˆëŠ” ìë¦¬ì¸ê±´ì§€
+//	//                           0 <=       <= _____  
+//
+//	if (isFull(L) == 0 && position >= 0 && position <= L->size) {
+//		// ì ¤ ë’¤ ì›ì†Œë¶€í„° í•œì¹¸ì”© ë’¤ë¡œ ë°€ì–´ì„œ 
+//		for (int i = L->size - 1; i >= position; i--) {
+//			// ì œì¼ ë ì›ì†Œë¶€í„° positionê¹Œì§€
+//			// position ìë¦¬ ë¹„ì›Œì£¼ë ¤ê³ 
+//			L->list[i + 1] = L->list[i]; // í•œì¹¸ ë¯¸ë£¸
+//		}
+//
+//		L->list[position] = item; // positionìë¦¬ì— item
+//		L->size++;// ì›ì†Œì˜ ê°œìˆ˜ + 1
+//	}
+//	else {
+//		printf("ë¦¬ìŠ¤íŠ¸ê°€ ê½‰ ì°¨ì„œ ì‚½ì… ë¶ˆê°€í•©ë‹ˆë‹¤.");
+//	}
+//}
+//
+//// delete
+//void delete(ArrayList* L, int position) {
+//	// ì•ˆ ë¹„ì–´ìˆì–´ì•¼ í•˜ê³  && positionì— ì›ì†Œê°€ ìˆëŠ”ì§€
+//	if (isEmpty(L) == 0 && position >= 0 && position < L->size) {
+//		for (int i = position; i < L->size; i++) {
+//			L->list[i] = L->list[i + 1];
+//			// ex. ì›ì†Œ 5ê°œ -> ë°°ì—´ ë²ˆí˜¸ 0 ~ 4
+//			// ë°°ì—´ 4ë²ˆ = ë°°ì—´ 5ë²ˆ
+//		}
+//		L->size--; // ì›ì†Œ ê°œìˆ˜ -1
+//	}
+//}
+//
+//// display : ì „ì²´ ì›ì†Œ(size) ì¶œë ¥
+////     ë°°ì—´ ë²ˆí˜¸ 0 ~ size-1
+//void display(ArrayList* L) {
+//	if (isEmpty(L) == 0) {
+//		for (int i = 0; i < L->size; i++) {
+//			printf("%d ", L->list[i]);
+//		}
+//	}
+//}
+//
+//int main() {
+//
+//	ArrayList arrlist;
+//
+//	init(&arrlist); // ì´ˆê¸°í™”
+//
+//	/* í…ŒìŠ¤íŠ¸ìš© ë°ì´í„° 3ê°œ ì‚½ì… */
+//	add(&arrlist, 0, 7);
+//	add(&arrlist, 1, 8);
+//	add(&arrlist, 2, 10);
+//
+//	delete(&arrlist, 1);
+//
+//	add(&arrlist, 1, 700);
+//
+//	display(&arrlist); // 7 700 10
+//
+//	return 0;
+//}
